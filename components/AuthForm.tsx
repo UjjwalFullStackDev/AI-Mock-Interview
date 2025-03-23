@@ -1,27 +1,26 @@
 "use client"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import Link from "next/link"
 import { toast } from "sonner"
-import FormField from "./FormField"
+import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Form } from "@/components/ui/form"
+import { Button } from "@/components/ui/button"
+import FormField from "./FormField"
 
 const authFormSchema = (type: FormType) => {
   return z.object({
     name: type === 'sign-up' ? z.string().min(3) : z.string().optional(),
     email: z.string().email(),
-    passoword: z.string().min(3),
+    password: z.string().min(3),
   })
 }
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
+
   const formSchema = authFormSchema(type)
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -29,7 +28,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
     defaultValues: {
       name: "",
       email: "",
-      passoword: "",
+      password: "",
     },
   })
  

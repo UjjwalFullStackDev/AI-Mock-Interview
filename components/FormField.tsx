@@ -1,24 +1,23 @@
 import React from 'react'
-import {
-    FormControl,
-    FormDescription,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
+import { FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
-import { fields } from '@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js'
 
 interface FormFieldProps<T extends FieldValues> {
  control: Control<T>;
  name: Path<T>;
- label: String;
- placeholder?:String;
+ label: string;
+ placeholder?: string;
  type?: 'text' | 'email' | 'password' | 'file'
 }
 
-const FormField = ({ control, name, label, placeholder, type='text'}: FormFieldProps<T>) => (
+const FormField = <T extends FieldValues>({
+    control, 
+    name, 
+    label, 
+    placeholder, 
+    type='text'
+}: FormFieldProps<T>) => (
     <Controller 
     control={control} 
     name={name} 
@@ -27,7 +26,7 @@ const FormField = ({ control, name, label, placeholder, type='text'}: FormFieldP
         <FormLabel className='label'>{label}</FormLabel>
         <FormControl>
           <Input 
-          className='input' 
+          className='input'
           placeholder= {placeholder}
           type={type}
           {...field} 
